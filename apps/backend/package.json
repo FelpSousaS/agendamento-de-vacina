@@ -1,0 +1,23 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FelpSousaS/agendamento-de-vacina.git"
+  },
+  "author": "Felipe Sousa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FelpSousaS/agendamento-de-vacina/issues"
+  },
+  "homepage": "https://github.com/FelpSousaS/agendamento-de-vacina#readme",
+  "description": "",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
