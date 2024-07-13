@@ -1,0 +1,18 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./agendamentos.db"
+}
+
+model Agendamento {
+  id                String   @id @default(uuid())
+  nome              String
+  dataNasc          DateTime
+  dataAgendamento   DateTime
+  statusAtendimento Boolean  @default(false)
+
+  @@map("agendamentos")
+}
