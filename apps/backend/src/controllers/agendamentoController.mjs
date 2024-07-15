@@ -5,14 +5,14 @@ import {
   startOfDay,
   endOfDay,
   startOfHour,
-  addHours,
+  endOfHour,
 } from 'date-fns';
 
 const agendamentoSchema = z.object({
   id: z.string().optional(),
   nome: z.string(),
-  dataNasc: z.string().optional(),
-  dataAgendamento: z.string().optional(),
+  dataNasc: z.string(),
+  dataAgendamento: z.string(),
 });
 
 export default class AgendamentoController {
@@ -53,7 +53,7 @@ export default class AgendamentoController {
 
     //verificando a quantidade de agendamentos na mesma hora
     const inicioHora = startOfHour(dataAgenConv);
-    const fimHora = addHours(inicioHora, 1); // garantindo intervalo de 1h entre os agendamentos
+    const fimHora = endOfHour(dataAgenConv);
 
     const agHora = await prismaClient.agendamento.count({
       where: {
@@ -68,32 +68,6 @@ export default class AgendamentoController {
       return response
         .status(400)
         .send({ message: 'Limite de 2 agendamentos por hora excedido.' });
-    }
-
-    //verificando intervalo de 1h entre os agendamentos
-    const agendamentosProximos = await prismaClient.agendamento.findMany({
-      where: {
-        OR: [
-          {
-            dataAgendamento: {
-              gte: addHours(dataAgenConv, -1),
-              lt: dataAgenConv,
-            },
-          },
-          {
-            dataAgendamento: {
-              gt: dataAgenConv,
-              lte: addHours(dataAgenConv, 1),
-            },
-          },
-        ],
-      },
-    });
-
-    if (agendamentosProximos.length > 0) {
-      return response.status(400).send({
-        message: 'Já existe um agendamento em um intervalo de 1 hora.',
-      });
     }
 
     const newAg = await prismaClient.agendamento.create({
