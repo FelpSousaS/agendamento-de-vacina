@@ -130,7 +130,13 @@ function EditAtendimentoModal({ isOpen, onClose, agendamento, onUpdate }) {
         </ModalBody>
 
         <ModalFooter>
-          <Button colorScheme="blue" mr={3} onClick={handleUpdate}>
+          <Button
+            bgColor={'#f49a28'}
+            mr={3}
+            onClick={handleUpdate}
+            textColor={'white'}
+            _hover={{ bg: 'rgba(244,154,40,0.8)' }}
+          >
             Atualizar
           </Button>
           <Button onClick={onClose}>Cancelar</Button>
