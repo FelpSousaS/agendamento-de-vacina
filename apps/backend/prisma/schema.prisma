@@ -12,7 +12,7 @@ model Agendamento {
   nome              String
   dataNasc          DateTime
   dataAgendamento   DateTime
-  statusAtendimento Boolean  @default(false)
+  statusAtendimento Boolean? @default(false)
 
   @@map("agendamentos")
 }
