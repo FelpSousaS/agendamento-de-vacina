@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Box,
   Flex,
@@ -10,6 +11,7 @@ import {
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import icon from '../assets/icon.png';
+import { useLocation } from 'react-router-dom';
 
 const Links = [
   { name: 'Home', path: '/' },
@@ -17,22 +19,29 @@ const Links = [
   { name: 'Lista de Agendamentos', path: '/agendamentos' },
 ];
 
-const NavLink = ({ children, href }) => (
-  <Link
-    px={2}
-    py={1}
-    rounded={'md'}
-    _hover={{
-      textDecoration: 'none',
-      bg: useColorModeValue('gray.200', 'gray.700'),
-    }}
-    href={href}
-  >
-    {children}
-  </Link>
-);
+const NavLink = ({ children, href }) => {
+  const location = useLocation();
+  const isActive = location.pathname === href;
 
-export default function Navbar() {
+  return (
+    <Link
+      px={2}
+      py={1}
+      rounded={'md'}
+      _hover={{
+        textDecoration: 'none',
+        bg: useColorModeValue('gray.200', 'gray.700'),
+      }}
+      bg={isActive ? 'gray.200' : 'transparent'}
+      color={isActive ? 'black' : 'black'}
+      href={href}
+    >
+      {children}
+    </Link>
+  );
+};
+
+const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -80,4 +89,6 @@ export default function Navbar() {
       </Box>
     </>
   );
-}
+};
+
+export default Navbar;

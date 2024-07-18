@@ -59,17 +59,20 @@ const Hero = () => {
         </Text>
         <HStack spacing={{ base: 0, sm: 2 }} flexWrap="wrap">
           <Button
-            colorScheme="orange"
-            variant="solid"
+            bg="rgba(244,154,40,1)"
+            color="white"
+            _hover={{ bg: 'rgba(244,154,40,0.8)' }}
             onClick={() => navigate('/agendamentos/novo')}
           >
             Agendar
           </Button>
 
           <Button
-            colorScheme="orange"
+            bg={'white'}
+            color="rgba(244,154,40,1)"
             variant="outline"
-            backgroundColor={'white'}
+            borderColor="rgba(244,154,40,1)"
+            _hover={{ bg: 'rgba(244,244,244,255)' }}
             onClick={() => navigate('/agendamentos')}
           >
             Lista de Agendamentos
