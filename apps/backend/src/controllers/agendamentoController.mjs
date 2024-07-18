@@ -113,22 +113,79 @@ export default class AgendamentoController {
 
   async update(request, response) {
     const { id } = request.params;
-    const { nome } = request.body;
-    const { dataNasc } = request.body;
-    const { dataAgendamento } = request.body;
-    const { statusAtendimento } = request.body;
+    const { success, data, error } = agendamentoSchema.safeParse(request.body);
 
-    await prismaClient.agendamento.update({
+    if (!success) {
+      return response.status(400).send(error);
+    }
+
+    const dataNascConv = parseISO(data.dataNasc);
+    const dataAgenConv = parseISO(data.dataAgendamento);
+
+    // Verificando a quantidade de agendamentos no dia
+    const inicioDia = startOfDay(dataAgenConv);
+    const fimDia = endOfDay(dataAgenConv);
+
+    const totalAg = await prismaClient.agendamento.count({
+      where: {
+        dataAgendamento: {
+          gte: inicioDia,
+          lte: fimDia,
+        },
+        NOT: {
+          id: id,
+        },
+      },
+    });
+
+    if (totalAg >= 20) {
+      return response
+        .status(400)
+        .send({
+          message:
+            'Limite de 20 agendamentos por dia excedido! Escolha outro dia.',
+        });
+    }
+
+    // Verificando a quantidade de agendamentos na mesma hora
+    const inicioHora = startOfHour(dataAgenConv);
+    const fimHora = endOfHour(dataAgenConv);
+
+    const agHora = await prismaClient.agendamento.count({
+      where: {
+        dataAgendamento: {
+          gte: inicioHora,
+          lte: fimHora,
+        },
+        NOT: {
+          id: id,
+        },
+      },
+    });
+
+    if (agHora >= 2) {
+      return response
+        .status(400)
+        .send({
+          message:
+            'Limite de 2 agendamentos por hora excedido! Escolha outro horário.',
+        });
+    }
+
+    const updatedAg = await prismaClient.agendamento.update({
       data: {
-        nome,
-        dataNasc,
-        dataAgendamento,
-        statusAtendimento,
+        nome: data.nome,
+        dataNasc: dataNascConv,
+        dataAgendamento: dataAgenConv,
+        statusAtendimento: data.statusAtendimento ?? false,
       },
       where: { id },
     });
 
-    response.send({ message: 'Agendamento atualizado.' });
+    response.send({
+      message: 'Agendamento atualizado com sucesso!',
+      data: updatedAg,
+    });
   }
 
   async delete(request, response) {
