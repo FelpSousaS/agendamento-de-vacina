@@ -4,11 +4,13 @@ import { Box, Spinner, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import api from '../services/api';
 import PageTitle from '../components/PageTitle';
+import { useNotification } from '../context/NotificationContext';
 
 const Agendamentos = () => {
   const [agendamentos, setAgendamentos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { showNotification } = useNotification();
 
   useEffect(() => {
     api
@@ -22,6 +24,28 @@ const Agendamentos = () => {
         setLoading(false);
       });
   }, []);
+
+  const handleUpdateAgendamento = async (agendamentoAtualizado) => {
+    try {
+      const response = await api.put(
+        `/api/agendamentos/${agendamentoAtualizado.id}`,
+        agendamentoAtualizado,
+      );
+      setAgendamentos((prevAgendamentos) =>
+        prevAgendamentos.map((agendamento) =>
+          agendamento.id === agendamentoAtualizado.id
+            ? agendamentoAtualizado
+            : agendamento,
+        ),
+      );
+      showNotification(response.data.message, 'success');
+    } catch (error) {
+      console.error('Erro ao atualizar agendamento:', error);
+      const errorMessage =
+        error.response?.data?.message || 'Erro ao atualizar agendamento';
+      showNotification(errorMessage, 'error');
+    }
+  };
 
   let content;
 
@@ -41,7 +65,10 @@ const Agendamentos = () => {
   } else {
     content = (
       <Box p={6}>
-        <TabelaAgendamentos agendamentos={agendamentos} />
+        <TabelaAgendamentos
+          agendamentos={agendamentos}
+          onUpdate={handleUpdateAgendamento}
+        />
       </Box>
     );
   }

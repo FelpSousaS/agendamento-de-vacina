@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Table,
   Thead,
@@ -12,6 +13,7 @@ import {
 } from '@chakra-ui/react';
 import { format } from 'date-fns';
 import { CheckIcon, CloseIcon } from '@chakra-ui/icons';
+import { useModal } from '../context/ModalContext';
 
 const theme = extendTheme({
   colors: {
@@ -23,7 +25,13 @@ const theme = extendTheme({
   },
 });
 
-const TabelaAgendamentos = ({ agendamentos }) => {
+const TabelaAgendamentos = ({ agendamentos, onUpdate }) => {
+  const { openModal } = useModal();
+
+  const handleOpenModal = (agendamento) => {
+    openModal(agendamento, onUpdate);
+  };
+
   return (
     <ChakraProvider theme={theme}>
       <TableContainer bg={theme.colors.customBlue}>
@@ -46,7 +54,11 @@ const TabelaAgendamentos = ({ agendamentos }) => {
           </Thead>
           <Tbody>
             {agendamentos.map((agendamento) => (
-              <Tr key={agendamento.id}>
+              <Tr
+                key={agendamento.id}
+                onClick={() => handleOpenModal(agendamento)}
+                cursor="pointer"
+              >
                 <Td textAlign="center" color="white">
                   {agendamento.nome}
                 </Td>
