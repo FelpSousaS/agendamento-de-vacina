@@ -13,6 +13,7 @@ const agendamentoSchema = z.object({
   nome: z.string(),
   dataNasc: z.string(),
   dataAgendamento: z.string(),
+  statusAtendimento: z.boolean().optional(),
 });
 
 export default class AgendamentoController {
@@ -23,6 +24,7 @@ export default class AgendamentoController {
       nome: agendamento.nome,
       dataNasc: agendamento.dataNasc,
       dataAgendamento: agendamento.dataAgendamento,
+      statusAtendimento: agendamento.statusAtendimento,
     });
 
     if (!success) {
@@ -75,6 +77,7 @@ export default class AgendamentoController {
         nome: agendamento.nome,
         dataNasc: dataNascConv,
         dataAgendamento: dataAgenConv,
+        statusAtendimento: agendamento.statusAtendimento ?? false,
       },
     });
 
@@ -113,9 +116,15 @@ export default class AgendamentoController {
     const { nome } = request.body;
     const { dataNasc } = request.body;
     const { dataAgendamento } = request.body;
+    const { statusAtendimento } = request.body;
 
     await prismaClient.agendamento.update({
-      data: { nome, dataNasc, dataAgendamento },
+      data: {
+        nome,
+        dataNasc,
+        dataAgendamento,
+        statusAtendimento,
+      },
       where: { id },
     });
 
