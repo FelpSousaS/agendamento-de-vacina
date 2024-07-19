@@ -1,16 +1,8 @@
 import * as React from 'react';
-import {
-  chakra,
-  Stack,
-  HStack,
-  Text,
-  Box,
-  Button,
-  Flex,
-  useColorModeValue,
-} from '@chakra-ui/react';
+import { Stack, HStack, Text, chakra } from '@chakra-ui/react';
 import heroImg from '../assets/hero_img.jpg';
 import { useNavigate } from 'react-router-dom';
+import CustomButton from './CustomButton';
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -58,25 +50,19 @@ const Hero = () => {
           agende agora mesmo seu horário para a vacina!
         </Text>
         <HStack spacing={{ base: 0, sm: 2 }} flexWrap="wrap">
-          <Button
-            bg="rgba(244,154,40,1)"
-            color="white"
-            _hover={{ bg: 'rgba(244,154,40,0.8)' }}
+          <CustomButton
+            variant="primary"
             onClick={() => navigate('/agendamentos/novo')}
           >
             Agendar
-          </Button>
+          </CustomButton>
 
-          <Button
-            bg={'white'}
-            color="rgba(244,154,40,1)"
-            variant="outline"
-            borderColor="rgba(244,154,40,1)"
-            _hover={{ bg: 'rgba(244,244,244,255)' }}
+          <CustomButton
+            variant="secondary"
             onClick={() => navigate('/agendamentos')}
           >
             Lista de Agendamentos
-          </Button>
+          </CustomButton>
         </HStack>
       </Stack>
     </Stack>
