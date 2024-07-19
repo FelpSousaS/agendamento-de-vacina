@@ -1,6 +1,6 @@
-import Layout from '../components/Layout';
-import FormAgendamento from '../components/FormAgendamento';
-import PageTitle from '../components/PageTitle';
+import Layout from '../components/Layout/Layout';
+import FormAgendamento from '../components/FormAgendamento/FormAgendamento';
+import PageTitle from '../components/PageTitle/PageTitle';
 
 const CriarAgendamento = () => (
   <Layout>

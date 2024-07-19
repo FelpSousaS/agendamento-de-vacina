@@ -1,10 +1,10 @@
-import Layout from '../components/Layout';
-import TabelaAgendamentos from '../components/TabelaAgendamentos';
+import Layout from '../components/Layout/Layout';
+import TabelaAgendamentos from '../components/TabelaAgendamentos/TabelaAgendamentos';
 import { Box, Spinner, Text, Button, HStack } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import api from '../services/api';
-import PageTitle from '../components/PageTitle';
-import EditAtendimentoModal from '../components/EditAtendimentoModal';
+import PageTitle from '../components/PageTitle/PageTitle';
+import EditAtendimentoModal from '../components/EditAtendimentoModal/EditAtendimentoModal';
 import { useNotification } from '../context/NotificationContext';
 import { useModal } from '../context/ModalContext';
 
