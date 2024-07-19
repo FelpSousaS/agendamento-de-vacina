@@ -1,0 +1,17 @@
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected,
+.react-datepicker__day--selected:hover,
+.react-datepicker__day--keyboard-selected:hover {
+  background-color: #f49a28 !important;
+  border-color: #f49a28 !important;
+  color: white !important;
+}
+
+.react-datepicker__day--today {
+  border-color: #f49a28 !important;
+}
+.react-datepicker__time-list-item--selected,
+.react-datepicker__time-list-item--selected:hover {
+  background-color: #f49a28 !important;
+  color: white !important;
+}
