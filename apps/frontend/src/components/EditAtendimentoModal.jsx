@@ -12,12 +12,21 @@ import {
   Input,
   Button,
   Switch,
+  IconButton,
+  Box,
 } from '@chakra-ui/react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import pt from 'date-fns/locale/pt-BR';
+import { DeleteIcon } from '@chakra-ui/icons';
 
-function EditAtendimentoModal({ isOpen, onClose, agendamento, onUpdate }) {
+function EditAtendimentoModal({
+  isOpen,
+  onClose,
+  agendamento,
+  onUpdate,
+  onDelete,
+}) {
   const initialRef = useRef(null);
   const [nome, setNome] = useState('');
   const [dataNasc, setDataNasc] = useState(null);
@@ -64,6 +73,15 @@ function EditAtendimentoModal({ isOpen, onClose, agendamento, onUpdate }) {
     onClose();
   };
 
+  const handleDelete = () => {
+    if (agendamento && onDelete) {
+      onDelete(agendamento.id);
+      onClose();
+    } else {
+      console.error('Função onDelete não definida');
+    }
+  };
+
   return (
     <Modal initialFocusRef={initialRef} isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -77,6 +95,11 @@ function EditAtendimentoModal({ isOpen, onClose, agendamento, onUpdate }) {
               ref={initialRef}
               value={nome}
               onChange={(e) => setNome(e.target.value)}
+              borderColor="customOrange"
+              _focus={{
+                borderColor: 'customOrange',
+                boxShadow: '0 0 0 1px #f49a28',
+              }}
             />
           </FormControl>
 
@@ -125,21 +148,49 @@ function EditAtendimentoModal({ isOpen, onClose, agendamento, onUpdate }) {
               isChecked={statusAtendimento}
               onChange={(e) => setStatusAtendimento(e.target.checked)}
               ml={2}
+              sx={{
+                '&[data-checked]': {
+                  '--switch-track-bg': '#f49a28',
+                  '--switch-thumb-bg': '#fff',
+                },
+                '&[data-unchecked]': {
+                  '--switch-track-bg': '#e2e8f0',
+                  '--switch-thumb-bg': '#fff',
+                },
+              }}
             />
           </FormControl>
         </ModalBody>
 
         <ModalFooter>
-          <Button
-            bgColor={'#f49a28'}
-            mr={3}
-            onClick={handleUpdate}
-            textColor={'white'}
-            _hover={{ bg: 'rgba(244,154,40,0.8)' }}
-          >
-            Atualizar
-          </Button>
-          <Button onClick={onClose}>Cancelar</Button>
+          <Box display="flex" justifyContent="space-between" width="100%">
+            <IconButton
+              icon={<DeleteIcon />}
+              color="#f49a28"
+              aria-label="Excluir"
+              onClick={handleDelete}
+              mr={3}
+            />
+            <Box>
+              <Button
+                bgColor={'#f49a28'}
+                mr={3}
+                onClick={handleUpdate}
+                textColor={'white'}
+                _hover={{ bg: 'rgba(244,154,40,0.8)' }}
+              >
+                Atualizar
+              </Button>
+              <Button
+                onClick={onClose}
+                bgColor={'white'}
+                border={'1px solid rgba(244,154,40,0.8)'}
+                color="rgba(244,154,40,0.8)"
+              >
+                Cancelar
+              </Button>
+            </Box>
+          </Box>
         </ModalFooter>
       </ModalContent>
     </Modal>

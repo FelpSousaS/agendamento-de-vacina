@@ -1,29 +1,41 @@
 import Layout from '../components/Layout';
 import TabelaAgendamentos from '../components/TabelaAgendamentos';
-import { Box, Spinner, Text } from '@chakra-ui/react';
+import { Box, Spinner, Text, Button, HStack } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import api from '../services/api';
 import PageTitle from '../components/PageTitle';
+import EditAtendimentoModal from '../components/EditAtendimentoModal';
 import { useNotification } from '../context/NotificationContext';
+import { useModal } from '../context/ModalContext';
 
 const Agendamentos = () => {
   const [agendamentos, setAgendamentos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const { showNotification } = useNotification();
+  const { isOpen, closeModal, modalData } = useModal();
 
-  useEffect(() => {
+  const fetchAgendamentos = (pageNumber) => {
+    setLoading(true);
     api
-      .get('/api/agendamentos')
+      .get('/api/agendamentos', { params: { page: pageNumber, pageSize: 20 } })
       .then((response) => {
         setAgendamentos(response.data.items);
+        setTotalPages(Math.ceil(response.data.totalCount / 20));
+        setPage(pageNumber);
         setLoading(false);
       })
       .catch((err) => {
         setError(err.message);
         setLoading(false);
       });
-  }, []);
+  };
+
+  useEffect(() => {
+    fetchAgendamentos(page);
+  }, [page]);
 
   const handleUpdateAgendamento = async (agendamentoAtualizado) => {
     try {
@@ -68,7 +80,23 @@ const Agendamentos = () => {
         <TabelaAgendamentos
           agendamentos={agendamentos}
           onUpdate={handleUpdateAgendamento}
+          fetchAgendamentos={() => fetchAgendamentos(page)}
         />
+        <HStack spacing={4} mt={4} justify="center">
+          <Button
+            onClick={() => fetchAgendamentos(page - 1)}
+            isDisabled={page === 1}
+          >
+            Anterior
+          </Button>
+          <Text>{`Página ${page} de ${totalPages}`}</Text>
+          <Button
+            onClick={() => fetchAgendamentos(page + 1)}
+            isDisabled={page === totalPages}
+          >
+            Próxima
+          </Button>
+        </HStack>
       </Box>
     );
   }
@@ -77,6 +105,15 @@ const Agendamentos = () => {
     <Layout>
       <PageTitle>Agendamentos</PageTitle>
       {content}
+      {isOpen && (
+        <EditAtendimentoModal
+          isOpen={isOpen}
+          onClose={closeModal}
+          agendamento={modalData?.agendamento}
+          onUpdate={modalData?.onUpdate}
+          onDelete={modalData?.onDelete}
+        />
+      )}
     </Layout>
   );
 };
