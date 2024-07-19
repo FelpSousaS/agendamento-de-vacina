@@ -50,7 +50,10 @@ export default class AgendamentoController {
     if (totalAg >= 20) {
       return response
         .status(400)
-        .send({ message: 'Limite de 20 agendamentos excedido!' });
+        .send({
+          message:
+            'Limite de 20 agendamentos por dia excedido! Escolha outro dia.',
+        });
     }
 
     //verificando a quantidade de agendamentos na mesma hora
@@ -69,7 +72,10 @@ export default class AgendamentoController {
     if (agHora >= 2) {
       return response
         .status(400)
-        .send({ message: 'Limite de 2 agendamentos por hora excedido.' });
+        .send({
+          message:
+            'Limite de 2 agendamentos por hora excedido! Escolha outro horário.',
+        });
     }
 
     const newAg = await prismaClient.agendamento.create({
@@ -139,12 +145,10 @@ export default class AgendamentoController {
     });
 
     if (totalAg >= 20) {
-      return response
-        .status(400)
-        .send({
-          message:
-            'Limite de 20 agendamentos por dia excedido! Escolha outro dia.',
-        });
+      return response.status(400).send({
+        message:
+          'Limite de 20 agendamentos por dia excedido! Escolha outro dia.',
+      });
     }
 
     // Verificando a quantidade de agendamentos na mesma hora
@@ -164,12 +168,10 @@ export default class AgendamentoController {
     });
 
     if (agHora >= 2) {
-      return response
-        .status(400)
-        .send({
-          message:
-            'Limite de 2 agendamentos por hora excedido! Escolha outro horário.',
-        });
+      return response.status(400).send({
+        message:
+          'Limite de 2 agendamentos por hora excedido! Escolha outro horário.',
+      });
     }
 
     const updatedAg = await prismaClient.agendamento.update({
