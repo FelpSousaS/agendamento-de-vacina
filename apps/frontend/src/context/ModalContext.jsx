@@ -1,55 +1,26 @@
-import React, { createContext, useContext, useState } from 'react';
-import EditAtendimentoModal from '../components/EditAtendimentoModal';
+import React, { createContext, useState, useContext } from 'react';
 
 const ModalContext = createContext();
 
-export const ModalProvider = ({ children }) => {
-  const [modalProps, setModalProps] = useState({
-    isOpen: false,
-    agendamento: null,
-    onUpdate: null,
-  });
+export const useModal = () => useContext(ModalContext);
 
-  const openModal = (agendamento, onUpdate) => {
-    setModalProps({
-      isOpen: true,
-      agendamento,
-      onUpdate,
-    });
+export const ModalProvider = ({ children }) => {
+  const [modalData, setModalData] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const openModal = (agendamento, onUpdate, onDelete) => {
+    setModalData({ agendamento, onUpdate, onDelete });
+    setIsOpen(true);
   };
 
   const closeModal = () => {
-    setModalProps({
-      isOpen: false,
-      agendamento: null,
-      onUpdate: null,
-    });
-  };
-
-  const handleUpdateAgendamento = async (agendamentoAtualizado) => {
-    if (modalProps.onUpdate) {
-      try {
-        await modalProps.onUpdate(agendamentoAtualizado);
-      } catch (error) {
-        console.error('Erro ao atualizar agendamento:', error);
-      }
-    }
-    closeModal();
+    setModalData(null);
+    setIsOpen(false);
   };
 
   return (
-    <ModalContext.Provider value={{ openModal }}>
+    <ModalContext.Provider value={{ isOpen, openModal, closeModal, modalData }}>
       {children}
-      {modalProps.isOpen && (
-        <EditAtendimentoModal
-          isOpen={modalProps.isOpen}
-          onClose={closeModal}
-          agendamento={modalProps.agendamento}
-          onUpdate={handleUpdateAgendamento}
-        />
-      )}
     </ModalContext.Provider>
   );
 };
-
-export const useModal = () => useContext(ModalContext);
