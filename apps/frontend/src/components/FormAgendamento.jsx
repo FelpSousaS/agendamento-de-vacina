@@ -5,7 +5,6 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Button,
   Stack,
   HStack,
   extendTheme,
@@ -20,8 +19,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import pt from 'date-fns/locale/pt-BR';
 import api from '../services/api';
 import { useNotification } from '../context/NotificationContext';
+import CustomButton from './CustomButton'; // Importa o CustomButton
 
-// Definindo o tema
 const theme = extendTheme({
   colors: {
     customOrange: '#f49a28',
@@ -81,6 +80,30 @@ const CustomInput = forwardRef(({ placeholder, ...props }, ref) => {
   );
 });
 
+const CustomDatePicker = ({
+  selected,
+  onChange,
+  placeholderText,
+  dateFormat,
+  showTimeSelect,
+  showTimeSelectOnly,
+  timeIntervals,
+}) => {
+  return (
+    <DatePicker
+      selected={selected}
+      onChange={onChange}
+      placeholderText={placeholderText}
+      dateFormat={dateFormat}
+      locale={pt}
+      showTimeSelect={showTimeSelect}
+      showTimeSelectOnly={showTimeSelectOnly}
+      timeIntervals={timeIntervals}
+      customInput={<CustomInput />}
+    />
+  );
+};
+
 const FormAgendamento = () => {
   const {
     control,
@@ -88,6 +111,7 @@ const FormAgendamento = () => {
     reset,
     setValue,
     watch,
+    trigger,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
@@ -97,7 +121,7 @@ const FormAgendamento = () => {
       dataAgendamento: null,
       horario: null,
     },
-    mode: 'onTouched',
+    mode: 'onSubmit',
   });
 
   const { showNotification } = useNotification();
@@ -200,15 +224,11 @@ const FormAgendamento = () => {
                 name="dataNasc"
                 control={control}
                 render={({ field }) => (
-                  <DatePicker
-                    id="dataNasc"
+                  <CustomDatePicker
                     selected={field.value}
                     onChange={(date) => field.onChange(date)}
                     dateFormat="dd/MM/yyyy"
                     placeholderText="Data de nascimento"
-                    locale={pt}
-                    onBlur={() => field.onBlur()}
-                    customInput={<CustomInput />}
                   />
                 )}
               />
@@ -229,15 +249,11 @@ const FormAgendamento = () => {
                 name="dataAgendamento"
                 control={control}
                 render={({ field }) => (
-                  <DatePicker
-                    id="dataAgendamento"
+                  <CustomDatePicker
                     selected={field.value}
                     onChange={(date) => field.onChange(date)}
                     dateFormat="dd/MM/yyyy"
                     placeholderText="Data do agendamento"
-                    locale={pt}
-                    onBlur={() => field.onBlur()}
-                    customInput={<CustomInput />}
                   />
                 )}
               />
@@ -256,18 +272,14 @@ const FormAgendamento = () => {
                 name="horario"
                 control={control}
                 render={({ field }) => (
-                  <DatePicker
-                    id="horario"
+                  <CustomDatePicker
                     selected={field.value}
                     onChange={(date) => field.onChange(date)}
+                    dateFormat="HH:mm"
                     showTimeSelect
                     showTimeSelectOnly
                     timeIntervals={60}
-                    dateFormat="HH:mm"
                     placeholderText="Selecione o horário"
-                    locale={pt}
-                    onBlur={() => field.onBlur()}
-                    customInput={<CustomInput />}
                   />
                 )}
               />
@@ -276,28 +288,22 @@ const FormAgendamento = () => {
               )}
             </FormControl>
 
-            <HStack spacing={4} pt={4} justify="flex-end">
-              <Button
-                bg={theme.colors.customOrange}
-                color={theme.colors.customWhite}
-                _hover={{ bg: 'rgba(244,154,40,0.8)' }}
+            <Stack spacing={4} pt={4} direction="row" justify="flex-end">
+              <CustomButton
+                variant="primary"
                 onClick={handleSubmit(onSubmit)}
+                width="100px"
               >
                 Agendar
-              </Button>
-              <Button
-                variant="outline"
-                borderColor={theme.colors.customOrange}
-                color={theme.colors.customOrange}
-                bg={theme.colors.customWhite}
-                onClick={() => {
-                  reset();
-                  localStorage.removeItem('formData');
-                }}
+              </CustomButton>
+              <CustomButton
+                variant="secondary"
+                onClick={() => reset()}
+                width="100px"
               >
                 Limpar
-              </Button>
-            </HStack>
+              </CustomButton>
+            </Stack>
           </Stack>
         </Box>
       </Flex>

@@ -10,15 +10,13 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Button,
-  Switch,
   IconButton,
   Box,
+  Switch,
 } from '@chakra-ui/react';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import pt from 'date-fns/locale/pt-BR';
 import { DeleteIcon } from '@chakra-ui/icons';
+import CustomDatePicker from './CustomDatePicker';
+import CustomButton from './CustomButton'; // Importe o CustomButton
 
 function EditAtendimentoModal({
   isOpen,
@@ -105,29 +103,27 @@ function EditAtendimentoModal({
 
           <FormControl mt={4}>
             <FormLabel>Data de Nascimento</FormLabel>
-            <DatePicker
+            <CustomDatePicker
               selected={dataNasc}
               onChange={(date) => handleDateChange(date, 'dataNasc')}
               dateFormat="dd/MM/yyyy"
               placeholderText="Selecione a data de nascimento"
-              locale={pt}
             />
           </FormControl>
 
           <FormControl mt={4}>
             <FormLabel>Data do Agendamento</FormLabel>
-            <DatePicker
+            <CustomDatePicker
               selected={dataAgendamento}
               onChange={(date) => handleDateChange(date, 'dataAgendamento')}
               dateFormat="dd/MM/yyyy"
               placeholderText="Selecione a data do agendamento"
-              locale={pt}
             />
           </FormControl>
 
           <FormControl mt={4}>
             <FormLabel>Horário</FormLabel>
-            <DatePicker
+            <CustomDatePicker
               selected={horario}
               onChange={(date) => handleDateChange(date, 'horario')}
               showTimeSelect
@@ -135,7 +131,6 @@ function EditAtendimentoModal({
               timeIntervals={60}
               dateFormat="HH:mm"
               placeholderText="Selecione o horário"
-              locale={pt}
             />
           </FormControl>
 
@@ -172,23 +167,17 @@ function EditAtendimentoModal({
               mr={3}
             />
             <Box>
-              <Button
-                bgColor={'#f49a28'}
-                mr={3}
+              <CustomButton
+                variant="primary"
                 onClick={handleUpdate}
-                textColor={'white'}
-                _hover={{ bg: 'rgba(244,154,40,0.8)' }}
+                width="100px"
+                mr={3}
               >
                 Atualizar
-              </Button>
-              <Button
-                onClick={onClose}
-                bgColor={'white'}
-                border={'1px solid rgba(244,154,40,0.8)'}
-                color="rgba(244,154,40,0.8)"
-              >
+              </CustomButton>
+              <CustomButton variant="secondary" onClick={onClose} width="100px">
                 Cancelar
-              </Button>
+              </CustomButton>
             </Box>
           </Box>
         </ModalFooter>
