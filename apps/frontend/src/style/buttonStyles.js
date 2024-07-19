@@ -8,7 +8,7 @@ const buttonStyles = {
     bg: 'white',
     color: '#f49a28',
     border: '1px solid #f49a28',
-    _hover: { bg: 'rgba(244,154,40,0.1)' },
+    _hover: { bg: 'rgba(230,230,230,255)' },
   },
 };
 
