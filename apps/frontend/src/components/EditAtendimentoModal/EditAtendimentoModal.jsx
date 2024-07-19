@@ -15,8 +15,8 @@ import {
   Switch,
 } from '@chakra-ui/react';
 import { DeleteIcon } from '@chakra-ui/icons';
-import CustomDatePicker from './CustomDatePicker';
-import CustomButton from './CustomButton'; // Importe o CustomButton
+import CustomDatePicker from '../CustomDatePicker/CustomDatePicker';
+import CustomButton from '../CustomButton/CustomButton';
 
 function EditAtendimentoModal({
   isOpen,

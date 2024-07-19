@@ -10,16 +10,16 @@ import {
   extendTheme,
   ChakraProvider,
 } from '@chakra-ui/react';
-import DatePicker from 'react-datepicker';
+import CustomDatePicker from '../CustomDatePicker/CustomDatePicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import '../style/DataPickerStyles.css';
+import '../../style/DataPickerStyles.css';
 import { useForm, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import pt from 'date-fns/locale/pt-BR';
-import api from '../services/api';
-import { useNotification } from '../context/NotificationContext';
-import CustomButton from './CustomButton';
+import api from '../../services/api';
+import { useNotification } from '../../context/NotificationContext';
+import CustomButton from '../CustomButton/CustomButton';
 
 const theme = extendTheme({
   colors: {
@@ -79,7 +79,7 @@ const CustomInput = forwardRef(({ placeholder, ...props }, ref) => {
     />
   );
 });
-
+/*
 const CustomDatePicker = ({
   selected,
   onChange,
@@ -103,6 +103,7 @@ const CustomDatePicker = ({
     />
   );
 };
+*/
 
 const FormAgendamento = () => {
   const {

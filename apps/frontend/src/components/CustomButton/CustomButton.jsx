@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '@chakra-ui/react';
-import buttonStyles from '../style/buttonStyles';
+import buttonStyles from '../../style/buttonStyles';
 
 const CustomButton = ({ variant = 'primary', children, ...props }) => {
   return (

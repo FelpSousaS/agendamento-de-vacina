@@ -10,7 +10,7 @@ import {
   Link,
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
-import icon from '../assets/icon.png';
+import icon from '../../assets/icon.png';
 import { useLocation } from 'react-router-dom';
 
 const Links = [

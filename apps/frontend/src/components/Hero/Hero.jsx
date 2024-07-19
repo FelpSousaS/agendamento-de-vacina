@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Stack, HStack, Text, chakra } from '@chakra-ui/react';
-import heroImg from '../assets/hero_img.jpg';
+import heroImg from '../../assets/hero_img.jpg';
 import { useNavigate } from 'react-router-dom';
-import CustomButton from './CustomButton';
+import CustomButton from '../CustomButton/CustomButton';
 
 const Hero = () => {
   const navigate = useNavigate();

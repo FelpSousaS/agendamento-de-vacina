@@ -11,9 +11,9 @@ import {
 } from '@chakra-ui/react';
 import { format } from 'date-fns';
 import { CheckIcon, CloseIcon } from '@chakra-ui/icons';
-import { useModal } from '../context/ModalContext';
-import api from '../services/api';
-import { useNotification } from '../context/NotificationContext';
+import { useModal } from '../../context/ModalContext';
+import api from '../../services/api';
+import { useNotification } from '../../context/NotificationContext';
 
 const TabelaAgendamentos = ({ agendamentos, onUpdate, fetchAgendamentos }) => {
   const { openModal } = useModal();
