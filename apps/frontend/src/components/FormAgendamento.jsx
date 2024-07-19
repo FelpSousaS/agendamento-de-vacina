@@ -19,7 +19,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import pt from 'date-fns/locale/pt-BR';
 import api from '../services/api';
 import { useNotification } from '../context/NotificationContext';
-import CustomButton from './CustomButton'; // Importa o CustomButton
+import CustomButton from './CustomButton';
 
 const theme = extendTheme({
   colors: {

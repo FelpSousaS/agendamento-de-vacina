@@ -15,8 +15,8 @@ const Hero = () => {
       backgroundSize="cover"
       backgroundPosition="center"
       backgroundRepeat="no-repeat"
-      height="100vh"
-      width="100vw"
+      minH="100vh"
+      width="100%"
       color="white"
     >
       <Stack
@@ -30,6 +30,8 @@ const Hero = () => {
         p={5}
         borderRadius="md"
         textAlign="center"
+        maxW={{ base: '90%', md: '70%' }}
+        mx="auto"
       >
         <chakra.h1
           fontSize={{ base: '3xl', sm: '5xl' }}
