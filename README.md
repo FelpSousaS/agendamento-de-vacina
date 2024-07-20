@@ -47,3 +47,8 @@
 ## 🖼️ Páginas
 
 
+> ![Captura de tela 2024-07-19 234835](https://github.com/user-attachments/assets/e5e9ae20-747c-406f-b9cf-791086305bf7)
+> ![Captura de tela 2024-07-19 234857](https://github.com/user-attachments/assets/d2a713e0-65a9-45f4-85df-de3d1d2df421)
+> ![Captura de tela 2024-07-19 234915](https://github.com/user-attachments/assets/e82ae348-da1e-4586-bbb3-282ffd477fa0)
+> ![Captura de tela 2024-07-19 234931](https://github.com/user-attachments/assets/91ff104e-3436-43b2-89ae-eda73e25f2b1)
+
