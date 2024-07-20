@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CustomButton /> matches snapshot for primary variant 1`] = `
+<button
+  className="chakra-button css-sns2y8"
+  type="button"
+>
+  Primary Button
+</button>
+`;
+
+exports[`<CustomButton /> matches snapshot for secondary variant 1`] = `
+<button
+  className="chakra-button css-lqx85q"
+  type="button"
+>
+  Secondary Button
+</button>
+`;
