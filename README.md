@@ -1,7 +1,22 @@
 <h1 align="center"><strong> 💉VacinaJÁ </strong></h1>
 
-#### Desafio Pitang - Agendamento de Vacina
+#### O VacinaJá é uma aplicação desenvolvida como parte de um desafio promovido pela empresa Pitang. O objetivo da aplicação é gerenciar agendamentos de vacinação de forma eficiente e intuitiva.
 
+## ⚙️ Funcionalidades
+- Visualização de Agendamentos: Exibe uma lista de agendamentos com detalhes completos e opção de visualização em tabela.
+- Edição e Exclusão: Permite editar e excluir agendamentos existentes através de modais interativos.
+- Agendamento de Novas Vacinas: Inclui um formulário para adicionar novos agendamentos com informações detalhadas.
+- Interface Amigável: Utiliza o Chakra UI para uma interface moderna e responsiva, com suporte para visualização e edição de datas e horários.
+- Paginação: A tabela de agendamentos é paginada para uma navegação mais eficiente, exibindo 20 agendamentos por vez.
+
+ ## 💻 Tecnologias Utilizadas
+- React: Framework para construção da interface.
+- Chakra UI: Biblioteca de componentes para um design moderno e acessível.
+- Axios: Biblioteca para comunicação com a API backend.
+- React Datepicker: Biblioteca para seleção de datas e horários.
+
+
+  
 ## :arrow_up:  FrontEnd
 
 ### ▪️ Como acessar
